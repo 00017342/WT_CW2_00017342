@@ -1,7 +1,9 @@
 # 📚iReview
 
 ## 🧐 Project philosophy
-    iReview is a book shelf right inside your web. Create, read, update, delete, rate your books inside iReview. If you were interested in books, It is definitely your best choice!
+    iReview is a book shelf right inside your web.
+    Create, read, update, delete, rate your books inside iReview.
+    If you were interested in books, It is definitely your best choice!
 
 ## 👨‍💻 Tech stack
 ### Languages:
