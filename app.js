@@ -23,8 +23,8 @@ app.use(expressLayouts);
 app.set('layout', 'layouts/base');
 
 // Static files
-app.use('/css', express.static(path.join(__dirname, 'public/css')));
-app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/css', express.static(path.join(__dirname, 'public/styles')));
+app.use('/js', express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 
