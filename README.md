@@ -15,7 +15,7 @@
 
 ### Technologies:
     
-    Node.js
+    Node.j
     Express
     Express-validator
     Express-ejs-layouts
@@ -95,5 +95,5 @@ npm run dev
 ## Links
 ```
 1. https://github.com/00017342/WT_CW2_00017342.git
-2. 
+2. http://13.48.10.171:3000
 ```
