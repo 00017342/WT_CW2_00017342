@@ -1,5 +1,5 @@
 # 📚iReview
-https://github.com/00017342/WT_CW2_00017342.git/public/images/books-bg.jpg
+![Site Image](https://github.com/00017342/WT_CW2_00017342/blob/main/public/images/books-bg.jpg)
 ## 🧐 Project philosophy
     iReview is a book shelf right inside your web.
     Create, read, update, delete, rate your books inside iReview.
