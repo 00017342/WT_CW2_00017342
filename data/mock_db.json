@@ -1,0 +1,91 @@
+{
+  "books": [
+    {
+      "id": 4,
+      "title": "The Song of Weeknd",
+      "author": "Madeline Justin",
+      "genre": "Historical Fiction",
+      "published_year": 2012,
+      "isbn": "978-0-06-206062-4"
+    },
+    {
+      "id": 5,
+      "title": "Klara and the Sun",
+      "author": "Kazuo Ishiguro",
+      "genre": "Science Fiction",
+      "published_year": 2021,
+      "isbn": "978-0571364879"
+    },
+    {
+      "id": 6,
+      "title": "23",
+      "author": "2",
+      "genre": "Fiction",
+      "published_year": 1231,
+      "isbn": ""
+    },
+    {
+      "id": 7,
+      "title": "How to use MONGO",
+      "author": "Jane Austin",
+      "genre": "Science Fiction",
+      "published_year": 2000,
+      "isbn": ""
+    },
+    {
+      "id": 8,
+      "title": "Some Announcement SUPER",
+      "author": "Edward",
+      "genre": "Mystery",
+      "published_year": 1202,
+      "isbn": ""
+    }
+  ],
+  "reviews": [
+    {
+      "id": 104,
+      "book_id": 4,
+      "rating": 4.7,
+      "review_text": "A beautiful retelling that breathes new life into Greek mythology.",
+      "reviewer_name": "History Buff",
+      "created_at": "2024-02-05T16:20:00",
+      "updated_at": "2024-02-07T13:45:00"
+    },
+    {
+      "id": 106,
+      "book_id": 5,
+      "rating": 5,
+      "review_text": "A poignant examination of what it means to be human through the eyes of an artificial friend.",
+      "reviewer_name": "Literary Explorer",
+      "created_at": "2024-03-01T10:30:00",
+      "updated_at": "2025-04-07T03:25:49.187Z"
+    },
+    {
+      "id": 107,
+      "book_id": 5,
+      "rating": 4,
+      "review_text": "awewe13213",
+      "reviewer_name": "Anonymous Reader",
+      "created_at": "2025-04-07T03:09:09.045Z",
+      "updated_at": "2025-04-07T03:09:09.045Z"
+    },
+    {
+      "id": 108,
+      "book_id": 6,
+      "rating": 4.5,
+      "review_text": "Not bad !",
+      "reviewer_name": "Anonymous Reader",
+      "created_at": "2025-04-07T08:58:29.319Z",
+      "updated_at": "2025-04-07T08:58:29.319Z"
+    },
+    {
+      "id": 109,
+      "book_id": 4,
+      "rating": 1,
+      "review_text": "VERY AWEFUL!",
+      "reviewer_name": "MAD PERSON",
+      "created_at": "2025-04-07T09:39:44.641Z",
+      "updated_at": "2025-04-07T09:39:44.641Z"
+    }
+  ]
+}
