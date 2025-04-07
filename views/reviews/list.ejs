@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>All Reviews</h1>
+            <a href="/reviews/create" class="btn btn-primary">Write a Review</a>
+        </div>
+
+        <% if(typeof reviews !== 'undefined' && reviews.length > 0) { %>
+            <div class="row">
+                <% reviews.forEach(review => { %>
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    <% if(typeof books !== 'undefined') { %>
+                                        <% const book = books.find(b => b.id === review.book_id) %>
+                                        <h5 class="card-title mb-0">
+                                            <a href="/books/<%= review.book_id %>" class="text-decoration-none text-dark">
+                                                <%= book ? book.title : 'Unknown Book' %>
+                                            </a>
+                                        </h5>
+                                    <% } else { %>
+                                        <h5 class="card-title mb-0">Book #<%= review.book_id %></h5>
+                                    <% } %>
+                                    <div>
+                                        <% for(let i = 0; i < Math.floor(review.rating); i++) { %>
+                                            <span class="text-warning">★</span>
+                                        <% } %>
+                                        <% if(review.rating % 1 !== 0) { %>
+                                            <span class="text-warning">☆</span>
+                                        <% } %>
+                                        <% for(let i = 0; i < (5 - Math.ceil(review.rating)); i++) { %>
+                                            <span class="text-secondary">☆</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><%= review.review_text.length > 200 ? review.review_text.substring(0, 200) + '...' : review.review_text %></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">By: <%= review.reviewer_name %></small>
+                                    <small class="text-muted">Posted: <%= new Date(review.created_at).toLocaleDateString() %></small>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-top-0">
+                                <form action="/reviews/<%= review.id %>/delete" method="POST" class="d-inline" style="flex-grow: 1;">
+                                <div class="btn-group w-100">
+                                    <a href="/reviews/<%= review.id %>" class="btn btn-outline-primary">Read Full Review</a>
+                                    <a href="/reviews/<%= review.id %>/edit" class="btn btn-outline-warning">Edit</a>
+                                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="alert alert-info">
+                No reviews found. <a href="/reviews/create">Write a review</a> to get started!
+            </div>
+        <% } %>
+    </div>
+</div>

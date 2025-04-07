@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <% if(typeof book !== 'undefined') { %>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1><%= book.title %></h1>
+                <div>
+                    <a href="/books/<%= book.id %>/edit" class="btn btn-warning">Edit Book</a>
+                    <a href="/reviews/create?book_id=<%= book.id %>" class="btn btn-primary">Write Review</a>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center mb-3">
+                                <img src="/images/book-placeholder.jpg" alt="<%= book.title %>" class="img-fluid rounded" style="max-height: 250px;">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>Book Details</h4>
+                            <hr>
+                            <dl class="row">
+                                <dt class="col-sm-3">Author:</dt>
+                                <dd class="col-sm-9"><%= book.author %></dd>
+                                
+                                <dt class="col-sm-3">Genre:</dt>
+                                <dd class="col-sm-9"><%= book.genre %></dd>
+                                
+                                <dt class="col-sm-3">Published:</dt>
+                                <dd class="col-sm-9"><%= book.published_year %></dd>
+                                
+                                <dt class="col-sm-3">ISBN:</dt>
+                                <dd class="col-sm-9"><%= book.isbn %></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <h3 class="mb-3">Reviews</h3>
+            <% if(typeof reviews !== 'undefined' && reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">
+                                    <% for(let i = 0; i < Math.floor(review.rating); i++) { %>
+                                        <span class="text-warning">★</span>
+                                    <% } %>
+                                    <% if(review.rating % 1 !== 0) { %>
+                                        <span class="text-warning">☆</span>
+                                    <% } %>
+                                    <% for(let i = 0; i < (5 - Math.ceil(review.rating)); i++) { %>
+                                        <span class="text-secondary">☆</span>
+                                    <% } %>
+                                    <span class="ms-2 text-muted fs-6">(<%= review.rating.toFixed(1) %>)</span>
+                                </h5>
+                                <div>
+                                    <small class="text-muted">By: <%= review.reviewer_name %></small>
+                                </div>
+                            </div>
+                            <p class="card-text mt-3"><%= review.review_text %></p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted">Posted: <%= new Date(review.created_at).toLocaleDateString() %></small>
+                                <form action="/reviews/<%= review.id %>/delete" method="POST" class="d-inline">
+
+                                <div class="btn-group btn-group-sm">
+                                    <a href="/reviews/<%= review.id %>/edit" class="btn btn-outline-secondary">Edit</a>
+                                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="alert alert-info">
+                    No reviews yet. <a href="/reviews/create?book_id=<%= book.id %>">Be the first to write a review!</a>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="alert alert-danger">
+                Book not found. <a href="/books">Return to book list</a>
+            </div>
+        <% } %>
+    </div>
+</div>

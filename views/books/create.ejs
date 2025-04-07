@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">Add New Book</h3>
+            </div>
+            <div class="card-body">
+                <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+                    <div class="alert alert-danger">
+                        <h5>Please correct the following errors:</h5>
+                        <ul class="mb-0">
+                            <% errors.forEach(error => { %>
+                                <li><%= error.message %></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                <% } %>
+                
+                <form action="/books/store" method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'title')) ? 'is-invalid' : '' %>" 
+                            id="title" name="title" value="<%= typeof book !== 'undefined' ? book.title : '' %>" required>
+                        <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'title')) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.find(e => e.field === 'title').message %>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'author')) ? 'is-invalid' : '' %>" 
+                            id="author" name="author" value="<%= typeof book !== 'undefined' ? book.author : '' %>" required>
+                        <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'author')) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.find(e => e.field === 'author').message %>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="genre" class="form-label">Genre</label>
+                        <select class="form-select <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'genre')) ? 'is-invalid' : '' %>" 
+                            id="genre" name="genre" required>
+                            <option value="" selected disabled>Select a genre</option>
+                            <option value="Fiction" <%= typeof book !== 'undefined' && book.genre === 'Fiction' ? 'selected' : '' %>>Fiction</option>
+                            <option value="Non-Fiction" <%= typeof book !== 'undefined' && book.genre === 'Non-Fiction' ? 'selected' : '' %>>Non-Fiction</option>
+                            <option value="Science Fiction" <%= typeof book !== 'undefined' && book.genre === 'Science Fiction' ? 'selected' : '' %>>Science Fiction</option>
+                            <option value="Fantasy" <%= typeof book !== 'undefined' && book.genre === 'Fantasy' ? 'selected' : '' %>>Fantasy</option>
+                            <option value="Mystery" <%= typeof book !== 'undefined' && book.genre === 'Mystery' ? 'selected' : '' %>>Mystery</option>
+                            <option value="Thriller" <%= typeof book !== 'undefined' && book.genre === 'Thriller' ? 'selected' : '' %>>Thriller</option>
+                            <option value="Romance" <%= typeof book !== 'undefined' && book.genre === 'Romance' ? 'selected' : '' %>>Romance</option>
+                            <option value="Historical Fiction" <%= typeof book !== 'undefined' && book.genre === 'Historical Fiction' ? 'selected' : '' %>>Historical Fiction</option>
+                            <option value="Memoir" <%= typeof book !== 'undefined' && book.genre === 'Memoir' ? 'selected' : '' %>>Memoir</option>
+                            <option value="Biography" <%= typeof book !== 'undefined' && book.genre === 'Biography' ? 'selected' : '' %>>Biography</option>
+                            <option value="Self-Help" <%= typeof book !== 'undefined' && book.genre === 'Self-Help' ? 'selected' : '' %>>Self-Help</option>
+                            <option value="Business" <%= typeof book !== 'undefined' && book.genre === 'Business' ? 'selected' : '' %>>Business</option>
+                            <option value="Other" <%= typeof book !== 'undefined' && book.genre === 'Other' ? 'selected' : '' %>>Other</option>
+                        </select>
+                        <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'genre')) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.find(e => e.field === 'genre').message %>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="published_year" class="form-label">Published Year</label>
+                                <input type="number" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'published_year')) ? 'is-invalid' : '' %>" 
+                                    id="published_year" name="published_year" value="<%= typeof book !== 'undefined' ? book.published_year : '' %>" 
+                                    min="1000" max="<%= new Date().getFullYear() %>" required>
+                                <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'published_year')) { %>
+                                    <div class="invalid-feedback">
+                                        <%= errors.find(e => e.field === 'published_year').message %>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="isbn" class="form-label">ISBN</label>
+                                <input type="text" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'isbn')) ? 'is-invalid' : '' %>" 
+                                    id="isbn" name="isbn" value="<%= typeof book !== 'undefined' ? book.isbn : '' %>" placeholder="e.g., 978-3-16-148410-0">
+                                <div class="<%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'isbn')) ? 'invalid-feedback' : 'form-text' %>">
+                                    <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'isbn')) { %>
+                                        <%= errors.find(e => e.field === 'isbn').message %>
+                                    <% } else { %>
+                                        ISBN format: 978-3-16-148410-0 (optional)
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="/books" class="btn btn-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Add Book</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

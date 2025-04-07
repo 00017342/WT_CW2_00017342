@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <% if(typeof book !== 'undefined') { %>
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning">
+                    <h3 class="card-title mb-0">Edit Book</h3>
+                </div>
+                <div class="card-body">
+                    <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <h5>Please correct the following errors:</h5>
+                            <ul class="mb-0">
+                                <% errors.forEach(error => { %>
+                                    <li><%= error.message %></li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    <% } %>
+                    
+                    <form action="/books/<%= book.id %>/update" method="POST" id="updateForm">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'title')) ? 'is-invalid' : '' %>" 
+                                id="title" name="title" value="<%= book.title %>" required>
+                            <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'title')) { %>
+                                <div class="invalid-feedback">
+                                    <%= errors.find(e => e.field === 'title').message %>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="author" class="form-label">Author</label>
+                            <input type="text" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'author')) ? 'is-invalid' : '' %>" 
+                                id="author" name="author" value="<%= book.author %>" required>
+                            <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'author')) { %>
+                                <div class="invalid-feedback">
+                                    <%= errors.find(e => e.field === 'author').message %>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="genre" class="form-label">Genre</label>
+                            <select class="form-select <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'genre')) ? 'is-invalid' : '' %>" 
+                                id="genre" name="genre" required>
+                                <option value="" disabled>Select a genre</option>
+                                <option value="Fiction" <%= book.genre === 'Fiction' ? 'selected' : '' %>>Fiction</option>
+                                <option value="Non-Fiction" <%= book.genre === 'Non-Fiction' ? 'selected' : '' %>>Non-Fiction</option>
+                                <option value="Science Fiction" <%= book.genre === 'Science Fiction' ? 'selected' : '' %>>Science Fiction</option>
+                                <option value="Fantasy" <%= book.genre === 'Fantasy' ? 'selected' : '' %>>Fantasy</option>
+                                <option value="Mystery" <%= book.genre === 'Mystery' ? 'selected' : '' %>>Mystery</option>
+                                <option value="Thriller" <%= book.genre === 'Thriller' ? 'selected' : '' %>>Thriller</option>
+                                <option value="Romance" <%= book.genre === 'Romance' ? 'selected' : '' %>>Romance</option>
+                                <option value="Historical Fiction" <%= book.genre === 'Historical Fiction' ? 'selected' : '' %>>Historical Fiction</option>
+                                <option value="Memoir" <%= book.genre === 'Memoir' ? 'selected' : '' %>>Memoir</option>
+                                <option value="Biography" <%= book.genre === 'Biography' ? 'selected' : '' %>>Biography</option>
+                                <option value="Self-Help" <%= book.genre === 'Self-Help' ? 'selected' : '' %>>Self-Help</option>
+                                <option value="Business" <%= book.genre === 'Business' ? 'selected' : '' %>>Business</option>
+                                <option value="Other" <%= book.genre === 'Other' ? 'selected' : '' %>>Other</option>
+                            </select>
+                            <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'genre')) { %>
+                                <div class="invalid-feedback">
+                                    <%= errors.find(e => e.field === 'genre').message %>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="published_year" class="form-label">Published Year</label>
+                                    <input type="number" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'published_year')) ? 'is-invalid' : '' %>" 
+                                        id="published_year" name="published_year" value="<%= book.published_year %>" 
+                                        min="1000" max="<%= new Date().getFullYear() %>" required>
+                                    <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'published_year')) { %>
+                                        <div class="invalid-feedback">
+                                            <%= errors.find(e => e.field === 'published_year').message %>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="isbn" class="form-label">ISBN</label>
+                                    <input type="text" class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'isbn')) ? 'is-invalid' : '' %>" 
+                                        id="isbn" name="isbn" value="<%= book.isbn %>" placeholder="e.g., 978-3-16-148410-0">
+                                    <div class="<%= (typeof errors !== 'undefined' && errors.find(e => e.field === 'isbn')) ? 'invalid-feedback' : 'form-text' %>">
+                                        <% if(typeof errors !== 'undefined' && errors.find(e => e.field === 'isbn')) { %>
+                                            <%= errors.find(e => e.field === 'isbn').message %>
+                                        <% } else { %>
+                                            ISBN format: 978-3-16-148410-0 (optional)
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <div>
+                                <form action="/books/<%= book.id %>/delete" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                                    <button type="submit" class="btn btn-danger">Delete Book</button>
+                                </form>
+                            </div>
+                            <div>
+                                <a href="/books/<%= book.id %>" class="btn btn-secondary me-2">Cancel</a>
+                                <button type="submit" class="btn btn-warning">Update Book</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="alert alert-danger">
+                Book not found. <a href="/books">Return to book list</a>
+            </div>
+        <% } %>
+    </div>
+</div>

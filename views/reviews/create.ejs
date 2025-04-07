@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">Write a Review</h3>
+            </div>
+            <div class="card-body">
+                <form action="/reviews/store" method="POST">
+                    <div class="mb-3">
+                        <label for="book_id" class="form-label">Select Book</label>
+                        <select class="form-select" id="book_id" name="book_id" required>
+                            <option value="" selected disabled>Choose a book to review</option>
+                            <% if(typeof books !== 'undefined' && books.length > 0) { %>
+                                <% books.forEach(book => { %>
+                                    <option value="<%= book.id %>" <%= (typeof preselectedBookId !== 'undefined' && preselectedBookId == book.id) ? 'selected' : '' %>>
+                                        <%= book.title %> by <%= book.author %>
+                                    </option>
+                                <% }); %>
+                            <% } %>
+                        </select>
+                        <div class="form-text">Can't find the book? <a href="/books/create">Add a new book</a> first.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <div class="d-flex align-items-center">
+                            <input type="range" class="form-range w-75 me-2" id="rating" name="rating" min="1" max="5" step="0.5" value="4" oninput="updateRatingValue(this.value)">
+                            <span id="ratingValue" class="fs-4">4.0</span>
+                            <span class="ms-2 text-warning fs-4">★</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="review_text" class="form-label">Your Review</label>
+                        <textarea class="form-control" id="review_text" name="review_text" rows="6" placeholder="What did you think about this book?" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="reviewer_name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="reviewer_name" name="reviewer_name" placeholder="Your name or 'Anonymous'" value="Anonymous Reader">
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="/reviews" class="btn btn-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateRatingValue(val) {
+        document.getElementById('ratingValue').textContent = parseFloat(val).toFixed(1);
+    }
+</script>
