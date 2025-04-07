@@ -4,7 +4,7 @@ const express = require('express')
 const path = require('path')
 
 // make mock database (raw .json file) available globally in app
-global.mock_db = path.join(__dirname, './data/mock_db.json');
+global.mock_db = path.join(__dirname, './databases/mock_db.json');
 
 // for rendering views
 const expressLayouts = require('express-ejs-layouts')
